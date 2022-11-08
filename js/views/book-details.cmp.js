@@ -7,9 +7,16 @@ import reviewAdd from "../cmps/reviewAdd.cmp.js"
 import reviewPreview from "../cmps/review-preview.cmp.js"
 
 export default {
+    name: 'book-details',
+    props: ['id'],
     template: `
     <main>
     <div v-if="book" className="book-details">
+        <h1>{{$route.query.name}}</h1>
+        <div className="routing-links">
+            <router-link :to="'/book/' + prevBookId">Prev Book</router-link>
+            <router-link :to="'/book/' + nextBookId">Next Book</router-link>
+        </div>
         <div className="img-container">
             <img :src="book.thumbnail|| book.imageLinks.thumbnail" alt=""/>
             <img v-if="book.listPrice && book.listPrice.isOnSale"
@@ -52,16 +59,15 @@ export default {
         return {
             isShort: null,
             book: null,
+            nextBookId: null,
+            prevBookId: null,
         }
     },
     created() {
-        const bookId = this.$route.params.id
-        bookService.get(bookId)
-            .then(book => {
-                this.book = book
-                this.isShort = this.book.description.length <= 100
-            })
-
+        console.log(this.id);
+        this.$route.query = { name: 'tal' }
+        console.log(this.$route);
+        this.loadBook()
     },
     methods: {
         close() {
@@ -73,21 +79,35 @@ export default {
             if (currency === 'ILS') return price * 0.3
             return price
         },
-        removeReview(reviewId){
-            bookService.removeReview(this.book.id ,reviewId)
-            .then(updatedBook =>{
-                this.book = updatedBook
-                const msg = {
-                    txt: `Review removed ${reviewId}`,
-                    type: 'success',
-                    timeout: 3000,
+        removeReview(reviewId) {
+            bookService.removeReview(this.book.id, reviewId)
+                .then(updatedBook => {
+                    this.book = updatedBook
+                    const msg = {
+                        txt: `Review removed ${reviewId}`,
+                        type: 'success',
+                        timeout: 3000,
+                    }
+                    eventBus.emit('user-msg', msg)
                 }
-                eventBus.emit('user-msg', msg)
-            }
-                 )
+                )
         },
-        addReview(updatedBook){
+        addReview(updatedBook) {
             this.book = updatedBook
+        },
+        loadBook() {
+            bookService.get(this.bookId)
+                .then(book => {
+                    this.book = book
+                    this.isShort = this.book.description.length <= 100
+                })
+            bookService.getPrevNextBookId(this.id)
+                .then(({ next, prev }) => {
+                    this.nextBookId = next
+                    this.prevBookId = prev
+                    console.log(next, prev);
+                }
+                )
         }
     },
     computed: {
@@ -103,7 +123,7 @@ export default {
             return 'Popular book'
         },
         formattedPrice() {
-            if(!this.book.listPrice) return 'Not for sale!'
+            if (!this.book.listPrice) return 'Not for sale!'
             return new Intl.NumberFormat('en',
                 {
                     style: 'currency',
@@ -112,13 +132,21 @@ export default {
                 .format(this.book.listPrice.amount)
         },
         stylePrice() {
-            if(!this.book.listPrice) return
+            if (!this.book.listPrice) return
             const convertedPrice = this.convertToEuro()
             if (convertedPrice > 150) return 'expensive'
             else if (convertedPrice < 20) return 'cheap'
         },
         shortDesc() {
             return this.book.description.substring(0, 100)
+        },
+        bookId() {
+            return this.$route.params.id
+        }
+    },
+    watch: {
+        bookId() {
+            this.loadBook()
         }
     },
     components: {

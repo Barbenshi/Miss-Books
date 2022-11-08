@@ -16,6 +16,8 @@ export default {
             @removed="removeBook" 
             :books="booksForDisplay"/>
         <p v-else>Loading...</p>
+
+        <router-view></router-view>
     </main>
     `,
     data() {

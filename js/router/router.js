@@ -15,19 +15,24 @@ const routerOptions = {
         },
         {
             path: '/book',
+            name:'book',
             component: booksApp,
+            children: [
+                {
+
+                    // to="{name:'bookdetails', params:{id:book.id}}"
+                    path: '/book/:id',
+                    component: bookDetails,
+                    name:'bookdetails',
+                    props:true
+                },
+            ]
 
         },
         {
 
             path: '/book-add',
             component: bookAdd,
-        }
-        ,
-
-        {
-            path: '/book/:id',
-            component: bookDetails
         },
         {
             path: '/about',

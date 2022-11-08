@@ -8,7 +8,7 @@ export default {
                 <li v-for="book in books" :key="book.id">
                     <book-preview :book="book"/>
                     <section class="actions">
-                        <router-link :to="'/book/' + book.id">Details</router-link>
+                        <router-link :to="{name:'bookdetails', params:{id:book.id}, query:{name:'tal'}}">Details</router-link>
                         <button @click="remove(book.id)">X</button>
                     </section>
                 </li>
