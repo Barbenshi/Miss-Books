@@ -12,7 +12,7 @@ export default {
     template: `
     <main>
     <div v-if="book" className="book-details">
-        <h1>{{$route.query.name}}</h1>
+        <!-- <h1>{{$route.query.name}}</h1> -->
         <div className="routing-links">
             <router-link :to="'/book/' + prevBookId">Prev Book</router-link>
             <router-link :to="'/book/' + nextBookId">Next Book</router-link>
@@ -100,14 +100,14 @@ export default {
                 .then(book => {
                     this.book = book
                     this.isShort = this.book.description.length <= 100
+                    bookService.getPrevNextBookId(this.id)
+                    .then(({ next, prev }) => {
+                        this.nextBookId = next
+                        this.prevBookId = prev
+                        console.log(next, prev);
+                    }
+                    )
                 })
-            bookService.getPrevNextBookId(this.id)
-                .then(({ next, prev }) => {
-                    this.nextBookId = next
-                    this.prevBookId = prev
-                    console.log(next, prev);
-                }
-                )
         }
     },
     computed: {

@@ -57,7 +57,7 @@ function addReview(bookId, review) {
 function getPrevNextBookId(bookId) {
     return query().then(books => {
         var idx = books.findIndex(book => book.id === bookId)
-        if (idx === books.length - 1) idx = -1
+        if (idx === books.length - 1) idx = books.length-2
         if(idx === 0) idx = 1
         return {next: books[idx + 1].id, prev: books[idx-1].id}
     })
