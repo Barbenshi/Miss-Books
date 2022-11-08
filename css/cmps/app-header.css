@@ -1,0 +1,28 @@
+header{
+    display:flex ;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo a{
+    text-decoration: none;
+    color: var(--clr0);
+    font-size: 2rem;
+}
+
+header nav{
+    display: flex;
+}
+
+header nav a{
+    border-inline-start: 1px solid var(--clr2);
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--clr0);
+}
+
+.router-link-exact-active{
+    color: var(--primaryClr);
+}

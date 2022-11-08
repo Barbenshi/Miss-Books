@@ -1,0 +1,11 @@
+main{
+    position: relative;
+    padding-top: 65px;
+}
+
+main img.logo{
+    position: absolute;
+    width: 156px;
+    top: 0;
+    right: 0;
+}

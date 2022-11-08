@@ -1,0 +1,57 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-family: 'lato-reg';
+}
+
+body{
+    margin: 0;
+}
+
+button,.btn {
+    cursor: pointer;
+    min-height: 48px;
+    min-width: 48px;
+    border: 0;
+    border-radius: 1em;
+    outline: 1px solid black;
+}
+
+header,footer{
+    height: 10vh;
+    background-color: var(--clr3);
+    color: var(--clr0);
+    padding: 10px;
+}
+
+main{
+    background-color: var(--clr2);
+    padding: 10px;
+    min-height: 80vh;    
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    margin: 0;
+}
+
+ul{
+    list-style-type: none;
+}
+
+img{
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

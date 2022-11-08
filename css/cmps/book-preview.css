@@ -1,0 +1,14 @@
+.book-list li{
+    display: grid;
+    background-color: var(--clr0);
+    padding: 10px;
+    border-radius: 1em;
+}
+
+.actions{
+    justify-self: center;
+}
+
+.book-preview h2{
+    text-transform: capitalize;
+}

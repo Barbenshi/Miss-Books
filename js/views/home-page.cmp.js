@@ -1,0 +1,10 @@
+export default {
+    template:`
+    <section className="home-page main-layout" >
+        <h1>Home page</h1>
+        <h2>Welcome to your favorite Book Store!</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas voluptatem corrupti aspernatur incidunt, veritatis adipisci maiores sed, fugit repellat odit iste culpa sapiente veniam explicabo voluptates deleniti, fugiat esse praesentium. Aliquam ex animi reprehenderit fugit rerum ullam est vitae pariatur inventore voluptatem cupiditate impedit praesentium totam maxime perferendis modi tenetur cumque, et adipisci libero recusandae! Distinctio nesciunt iure, itaque explicabo maiores voluptatibus. Voluptatibus facilis architecto mollitia voluptatum animi saepe nemo et quidem ipsam odio nesciunt laborum sunt, repudiandae ipsum officia. Sequi assumenda aliquam reprehenderit aspernatur harum magni iure veritatis quidem distinctio doloribus est, asperiores, voluptatibus autem itaque tempora fuga soluta ipsum possimus laudantium quo. Cupiditate consequuntur natus officia quo. Magni reprehenderit asperiores voluptatum iusto aperiam incidunt, amet quasi sed eaque, unde expedita vitae mollitia rem accusamus facilis laboriosam consequatur atque consequuntur harum eius odit nam quis aliquam. Natus, optio cum voluptate veniam odit accusantium, vero, ipsam quaerat aspernatur hic tempore sint dignissimos. Distinctio earum, facilis delectus quibusdam itaque nihil nemo quod. Qui odit veniam fuga perspiciatis ipsam eius minus neque optio facilis ipsa? Qui mollitia doloremque atque voluptates iusto tenetur impedit veritatis repellat ut. Ratione excepturi inventore libero eius nulla, error fugit, amet laborum, neque atque quos illum ipsam ea.</p>
+        <router-link to="/book" class="btn">Click here to show books!</router-link>
+    </section>
+    `
+}
