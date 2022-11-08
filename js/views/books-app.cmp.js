@@ -10,7 +10,7 @@ export default {
     <img src="imgs/logo.png" alt="" class="logo"/>
         <books-filter 
         @filter="filter"/>
-
+        <router-link to="/book-add">Search for a new book</router-link>
         <books-list
             v-if="books" 
             @removed="removeBook" 
@@ -28,13 +28,14 @@ export default {
         }
     },
     created() {
-        bookService.query().then(books => this.books = books)
+        bookService.query().then(books =>this.books = books)
     },
     methods: {
         filter(filterBy) {
             this.filterBy = filterBy
         },
         convertToEuro(book) {
+            if(!book.listPrice) return 1000
             const price = book.listPrice.amount
             const currency = book.listPrice.currencyCode
             if (currency === 'ILS') return price * 0.3
@@ -62,6 +63,7 @@ export default {
                 const bookPrice = this.convertToEuro(book)
                 return (bookPrice > this.filterBy.fromPrice)
             })
+
         }
     },
     components: {

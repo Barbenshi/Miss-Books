@@ -11,8 +11,8 @@ export default {
     <main>
     <div v-if="book" className="book-details">
         <div className="img-container">
-            <img :src="book.thumbnail" alt="" />
-            <img v-if="book.listPrice.isOnSale"
+            <img :src="book.thumbnail|| book.imageLinks.thumbnail" alt=""/>
+            <img v-if="book.listPrice && book.listPrice.isOnSale"
              src="imgs/sale.png"
               alt="sale-img" class="sale-img" />
 
@@ -103,6 +103,7 @@ export default {
             return 'Popular book'
         },
         formattedPrice() {
+            if(!this.book.listPrice) return 'Not for sale!'
             return new Intl.NumberFormat('en',
                 {
                     style: 'currency',
@@ -111,6 +112,7 @@ export default {
                 .format(this.book.listPrice.amount)
         },
         stylePrice() {
+            if(!this.book.listPrice) return
             const convertedPrice = this.convertToEuro()
             if (convertedPrice > 150) return 'expensive'
             else if (convertedPrice < 20) return 'cheap'

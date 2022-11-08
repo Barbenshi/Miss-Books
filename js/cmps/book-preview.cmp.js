@@ -8,6 +8,7 @@ export default {
     `,
     computed: {
         formattedPrice() {
+            if (!this.book.listPrice) return 'Not for sale'
             return new Intl.NumberFormat('en',
                 {
                     style: 'currency',

@@ -13,11 +13,15 @@ export const bookService = {
     get,
     addReview,
     removeReview,
+    add,
     getGoogleBooks,
+    update,
 }
 
-function getGoogleBooks(){
-    return googleBooks
+function getGoogleBooks(bookName) {
+    const URL = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`
+    return axios.get(URL)
+        .then(({ data }) => data.items)
 }
 
 function query() {
@@ -32,26 +36,30 @@ function get(bookId) {
     return storageService.get(BOOKS_KEY, bookId)
 }
 
-function update(book){
+function add(book) {
+    return storageService.post(BOOKS_KEY, book)
+}
+
+function update(book) {
     return storageService.put(BOOKS_KEY, book)
 }
 
 function addReview(bookId, review) {
     return get(bookId).then(book => {
-        if(!book.reviews) book.reviews = []
+        if (!book.reviews) book.reviews = []
         book.reviews.push(review)
         return update(book)
     }
     )
 }
 
-function removeReview(bookId ,reviewId){
+function removeReview(bookId, reviewId) {
     return get(bookId)
-    .then(book=>{
-        const reviewIdx = book.reviews.findIndex(review=>review.id === reviewId)
-        book.reviews.splice(reviewIdx,1)
-        return update(book)
-    })
+        .then(book => {
+            const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
+            book.reviews.splice(reviewIdx, 1)
+            return update(book)
+        })
 }
 
 function _createBooks() {
